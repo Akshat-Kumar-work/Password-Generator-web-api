@@ -14,13 +14,13 @@ const symbols = '~@#$%^&*(){}:"|;<>?|';
 
 let password =" ";
 let passwordLength =10;
-let checkbox=1;
+let checkcount= 0;
 handleSlider(); /*calling function to move the slider acc to passlength*/
 
 //set strength circle color grey;
 
 
-// this slider function sets length of password
+// this slider function sets length of password on user interface
 function handleSlider(){
     inputSlider.value=passwordLength;
     lengthDisplay.innerText =passwordLength;
@@ -109,11 +109,117 @@ inputSlider.addEventListener('input',(e)=>{
 /*setting event listner on copy button to copy content on click */
 copyBtn.addEventListener('click',()=>{
     if(passwordDisplay.value){
-        toCopyPass();
+        toCopyPass(); 
     }
 });
 
+//any change on checkbox checkcount is incremented
+function handleCheckBoxChange(){
+ checkcount =0;
+ allCheckBox.forEach((checkbox)=>{
+    if(checkbox.checked){
+        checkcount++;
+    }
+ });
+
+//special condition - if password length is less than checkcount , then password length is equal to check count
+if(passwordLength< checkcount){
+    passwordLength = checkcount;
+    handleSlider(); //updating ui
+}
+}
+
+
+//if any change occur on checkbox it will start the loop again to check the checkbox by incrementing them
+allCheckBox.forEach((checkbox)=>{
+    checkbox.addEventListener('change',handleCheckBoxChange);
+})
+
+
+function shufflePassword(array) {
+    //Fisher Yates Method
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    let str = "";
+    array.forEach((el) => (str += el));
+    return str;
+}
 
 generateBtn.addEventListener('click',()=>{
-    
-})
+      //no checkbox checked
+      if(checkcount == 0){
+        return;
+      }
+      //if all four checkbox checked and password length is less than 4 by slider
+      else if (passwordLength < checkcount ){
+        passwordLength = checkcount;
+        handleSlider();
+      }
+
+      //to find new password
+      console.log("Starting the Journey");
+      //remove old password
+      password=" ";
+
+      //putting stuff mentioned through checkboxes
+
+
+    //   if(uppercaseCheck.checked){
+    //     password += generateUppercase();
+    //   }
+    //   else if (lowercaseCheck.checked){
+    //     password += generateLowercase();
+    //   }
+    //   else if (numbersCheck.checked){
+    //     password += generateRandomNumber();
+    //   }
+    //   else if (symbolsCheck.checked){
+    //     password += generateSymbol();
+    //   }
+
+    let funcArr = [];
+
+    if(uppercaseCheck.checked){
+        funcArr.push(generateUppercase);}
+
+     if(lowercaseCheck.checked){
+        funcArr.push(generateLowercase);}
+
+     if(numbersCheck.checked){
+                funcArr.push(generateRandomNumber);}
+
+     if(symbolsCheck.checked){
+                    funcArr.push(generateSymbol);}
+
+    // checked  addition in password
+    for(let i=0; i<funcArr.length; i++) {
+        password += funcArr[i]();
+    }
+    console.log("COmpulsory adddition done");
+
+       //remaining adddition
+       for(let i=0; i<passwordLength-funcArr.length; i++) {
+        
+        let randIndex = getRandomInteger(0 , funcArr.length);
+        console.log("randIndex" + randIndex);
+        password += funcArr[randIndex] ();
+    }
+    console.log("Remaining adddition done")
+      
+    //shufling password
+    password = shufflePassword(Array.from(password)); //sending password in form of array
+    console.log("Shuffling done");
+
+    //displaying pass
+    passwordDisplay.value = password;
+    console.log("UI adddition done");
+
+    //calculate strength calling
+    calcStrength();
+
+
+});
