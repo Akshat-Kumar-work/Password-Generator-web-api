@@ -24,38 +24,37 @@ handleSlider(); /*calling function to move the slider acc to passlength*/
 function handleSlider(){
     inputSlider.value=passwordLength;
     lengthDisplay.innerText =passwordLength;
-};
+}
 
 function setIndicator (color){
     indicator.style.backgroundColor=color;
     //shadow;
-};
+}
 
 //this function provide random interger from max to min
 function getRandomInteger(min,max){
-    Math.floor(Math.random() * (max-min)) +  min;  /* it give random integer from min to max*/
-};
-
+   return Math.floor(Math.random() * (max-min)) +  min;  /* it give random integer from min to max*/
+}
 // this function provide random no from 0 to 9
 function generateRandomNumber(){
     return getRandomInteger(0,9);
-};
+}
 
 //this function provide random askii value and convert into string , a askii value is 97 and z askii value is 123
 function generateLowercase(){
   return String.fromCharCode(getRandomInteger(97,123)) ;
-};
+}
 
 //this function provide random askii value and convert into string , A askii value is 65 and Z askii value is 91
 function generateUppercase(){
    return String.fromCharCode(getRandomInteger(65,91)) ;
- };
+ }
 
  //this function generate the random no and use it as a index of symbols string 
  function generateSymbol(){
     const RandomNUM = generateRandomNumber(0,symbols.length);
     return symbols.charAt(RandomNUM);
- };
+ }
 
  //it will decide generated pass is strong weak or average
 function calcStrength(){
@@ -70,7 +69,7 @@ function calcStrength(){
     if(numbersCheck.checked) haveNum = true;
     if(symbolsCheck.checked) havesymbol = true;
 
-    if(haveuppercase && hasLower && haveNum && havesymbol && passwordLength >=0){
+    if(haveuppercase && havelowercase && (haveNum || havesymbol) && passwordLength >=8){
         setIndicator("#0f0");
     }
     else if ((havelowercase|| haveuppercase) && (haveNum || havesymbol) && password>=6){
@@ -79,7 +78,7 @@ function calcStrength(){
     else{
         setIndicator("#f00");
     }
-};
+}
 
 //it will copy the generated password and show copid text when pass is copied 
 async function toCopyPass (){
@@ -98,20 +97,20 @@ catch(e){
     copyMsg.classList.remove("active");
    },3000);
     
-};
+}
 
 /*setting event listner on slider which  update the value of length display*/
 inputSlider.addEventListener('input',(e)=>{
     passwordLength= e.target.value; /*it will update the value into password length variable*/
     handleSlider(); /*calling handle slider function to update the pass length*/ 
-});
+})
 
 /*setting event listner on copy button to copy content on click */
 copyBtn.addEventListener('click',()=>{
     if(passwordDisplay.value){
         toCopyPass(); 
     }
-});
+})
 
 //any change on checkbox checkcount is incremented
 function handleCheckBoxChange(){
@@ -120,7 +119,7 @@ function handleCheckBoxChange(){
     if(checkbox.checked){
         checkcount++;
     }
- });
+ })
 
 //special condition - if password length is less than checkcount , then password length is equal to check count
 if(passwordLength< checkcount){
@@ -135,17 +134,17 @@ allCheckBox.forEach((checkbox)=>{
     checkbox.addEventListener('change',handleCheckBoxChange);
 })
 
-
+//this function shuffle the password
 function shufflePassword(array) {
-    //Fisher Yates Method
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
+    //Fisher Yates Method , it is a algo used to shuffle the password
+    for (let i = array.length - 1; i > 0; i--) { //loop from last index to zero in password
+        const j = Math.floor(Math.random() * (i + 1)); //getting the random element j from the password
+        const temp = array[i]; //at last swapping the last digit and with j
         array[i] = array[j];
         array[j] = temp;
       }
     let str = "";
-    array.forEach((el) => (str += el));
+    array.forEach((el) => (str += el)); //adding the each element of an array into string  
     return str;
 }
 
@@ -181,36 +180,37 @@ generateBtn.addEventListener('click',()=>{
     //     password += generateSymbol();
     //   }
 
-    let funcArr = [];
+    let funcArr = []; //this array contain functions to generate diff characters
 
-    if(uppercaseCheck.checked){
-        funcArr.push(generateUppercase);}
+    if(uppercaseCheck.checked){  //if uppercase is checked its function will store in funcArr
+        funcArr.push(generateUppercase);} 
 
      if(lowercaseCheck.checked){
         funcArr.push(generateLowercase);}
 
      if(numbersCheck.checked){
-                funcArr.push(generateRandomNumber);}
+        funcArr.push(generateRandomNumber);}
 
      if(symbolsCheck.checked){
-                    funcArr.push(generateSymbol);}
+         funcArr.push(generateSymbol);}
 
-    // checked  addition in password
+    // checked 4 element addition in password
     for(let i=0; i<funcArr.length; i++) {
-        password += funcArr[i]();
+        password += funcArr[i](); //in this the bracket is calling the function present inside the funcArr[i] 
     }
-    console.log("COmpulsory adddition done");
+    console.log("Compulsory addition done");
 
-       //remaining adddition
+       //remaining addition = selected passwordlength by slider - total checked element
        for(let i=0; i<passwordLength-funcArr.length; i++) {
         
         let randIndex = getRandomInteger(0 , funcArr.length);
         console.log("randIndex" + randIndex);
-        password += funcArr[randIndex] ();
+        password += funcArr[randIndex] (); //in this the bracket is calling the  function present in funcArr[randIndex]
+
     }
     console.log("Remaining adddition done")
       
-    //shufling password
+    //shufling password to make it random
     password = shufflePassword(Array.from(password)); //sending password in form of array
     console.log("Shuffling done");
 
