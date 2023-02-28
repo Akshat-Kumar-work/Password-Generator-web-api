@@ -24,6 +24,10 @@ setIndicator("white");
 function handleSlider(){
     inputSlider.value=passwordLength;
     lengthDisplay.innerText =passwordLength;
+    let min = inputSlider.min;
+    let max = inputSlider.max;
+    inputSlider.style.backgroundSize = ( (passwordLength-min ) * 100/(max-min) )+ " % 100%";
+   
 }
 
 function setIndicator (color){

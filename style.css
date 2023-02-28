@@ -183,4 +183,77 @@ body{
     background-color: transparent;
 }
 
+.slider{
+    appearance: none;
+    width: 100%;
+    height: 0.75rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    background-image: linear-gradient(var(--lt-violet2), var(--lt-violet2));
+    z-index: -1;
 
+}
+
+.slider::-webkit-slider-thumb{
+    position: relative;
+    appearance: none;
+    height:1.5rem;
+    width:1.5rem;
+    border-radius: 50%;
+    background-color:aqua;
+    transition: all 100ms ease-in;
+    z-index: 1;
+ 
+}
+
+
+.slider:focus{
+    outline:3px solid aqua;
+    
+}
+
+.slider::-webkit-slider-thumb:hover{
+    outline: 2px solid black;
+}
+
+
+
+.copiedMsg{
+opacity: 0;
+position: absolute;
+background-color: var(--vb-violet2);
+color: white;
+font-size: 1.25rem;
+top: -35px;
+right: 0;
+padding: 5px 10px;
+border-radius: 1rem;
+transform-origin: bottom;
+}
+
+.copiedMsg.active{
+ opacity: 1;
+ transform: scale(1);
+}
+
+
+/*to use this code in fire fox browser use moz-range with thumb*/
+.slider::-moz-range-thumb {
+    position: relative;
+    z-index: 1;
+    appearance: none;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background: var(--vb-yellow);
+    box-shadow: 0px 0px 20px 0px rgba(255, 229, 61, 0.50);
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb:hover {
+    outline: 2px solid var(--vb-yellow);
+    background-color: var(--dk-violet);
+    box-shadow: 0px 0px 25px 5px rgba(255, 229, 61, 0.80);
+  }
