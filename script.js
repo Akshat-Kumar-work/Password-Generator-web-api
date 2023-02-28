@@ -17,7 +17,7 @@ let passwordLength =10;
 let checkcount= 0;
 handleSlider(); /*calling function to move the slider acc to passlength*/
 
-//set strength circle color grey;
+setIndicator("white");
 
 
 // this slider function sets length of password on user interface

@@ -1,0 +1,186 @@
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'League Spartan',sans-serif;
+}
+
+/*element inside the root are global variable*/
+:root {
+
+    --dk-violet: hsl(268, 75%, 9%);
+    --lt-violet: hsl(268, 47%, 21%);
+    --lt-violet2: hsl(281, 89%, 26%);
+    --vb-violet: hsl(285, 91%, 52%);
+    --vb-violet2: hsl(290, 70%, 36%);
+  
+    --vb-yellow: hsl(52, 100%, 62%);
+  
+  
+    --pl-white: hsl(0, 0%, 100%);
+  
+    --vb-cyan: hsl(176, 100%, 44%);
+    --vb-cyan2: hsl(177, 92%, 70%);
+    --dk-text: hsl(198, 20%, 13%);
+}
+
+body{
+   width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:lightgrey;
+}
+
+.container{
+    width: 90%;
+    max-width: 450px;
+}
+.top-heading{
+    color: var(--lt-violet2);
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow:2px 2px 2px white;
+    
+}
+
+.display-container{
+    
+    background-color: var(--lt-violet2);
+    position: relative;
+    border-radius: 1rem ;
+    margin: 1rem 0;
+    padding-top: 0.35rem;
+    border-bottom: 0.35rem solid
+   
+}
+
+.display{
+    position: absolute;
+    width: 100%;
+    padding: 1.15rem 1rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 10px;
+    letter-spacing: 1px;
+    padding-right: 3.25rem;
+    padding: 1.15rem 1rem;
+    border:none;
+   
+}
+
+
+.display::placeholder{
+    position:absolute;
+    top: 50%;
+    left: 1.5rem;
+    font-size: 1.5rem;
+    line-height:30px;
+    text-transform: uppercase;
+   
+}
+
+.display-container button {
+    position:absolute;
+    width: 4rem;
+    height: 3.5rem;
+    right: 0;
+    border:5em;
+}
+
+.input-container{
+    width: 100%;
+    border-radius: 1rem;
+    padding: 2rem;
+    border-bottom: 0.35rem solid var(--lt-violet2);
+}
+
+
+
+
+.length-container{
+    margin-top: 1em;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.strength-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.75rem;
+    margin-bottom: 2rem;
+}
+
+[data-indicator] {
+    width:1.5rem;
+    height:1.5rem;
+    border-radius:50%;
+}
+
+.strength-container p{
+    font-size: 1.2rem;
+}
+
+.generateButton{
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+    border-radius: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    border-bottom: 0.35rem solid ;
+    cursor: pointer;
+}
+
+.check{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 0 1rem;
+}
+
+.check input{
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid ;
+    cursor: pointer;
+    position:relative ;
+    border-radius: 0.35rem;
+}
+
+/*when input is in checked state*/
+.check input:checked{
+    background-color:aqua ;
+}
+
+.check input:checked::before{
+    content:'✔' ;
+    position: absolute;
+    font-size:1.05rem;
+    font-weight: 600;
+    left:50%;
+    top:-9px;
+    transform: translateX(-50%)  translateY(40%);
+}
+
+.check label {
+    font-size: 1.05rem;
+    letter-spacing: 0.75px;
+}
+
+[data-copy]{
+    background-color: transparent;
+}
+
+
